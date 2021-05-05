@@ -5,5 +5,4 @@ var reviewschema=mongoose.Schema({
     content:String
     
 })
-
-module.exports=mongoose.model("comment",reviewschema);
+module.exports=mongoose.model("comment",reviewschemai);
