@@ -32,6 +32,7 @@ var express              =require("express"),
       passport.deserializeUser(User.deserializeUser());
         //database connecion
         mongoose.connect("mongodb+srv://theanshgupa4868:hellowkitty1320@cluster0.yd5lb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",{useNewUrlParser: true ,useUnifiedTopology: true})
+        
         .then(console.log("connected database"))
         .catch(err=>console.log(err))
         //to get current user and send it to all the template
