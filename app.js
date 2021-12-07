@@ -32,7 +32,11 @@ var express               =require("express"),
 //------------------------------------------------------------------------------
 
 //database connecion
+<<<<<<< HEAD
         mongoose.connect("mongodb+srv://theanshgupa4868:anshgupta@cluster0.yd5lb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",{useNewUrlParser: true ,useUnifiedTopology: true})
+=======
+        mongoose.connect("'mongodb://localhost:27017/restraunt",{useNewUrlParser: true ,useUnifiedTopology: true})
+>>>>>>> ad0cba952d4ddb8df07a8dee9d70fdaa1ff0a94e
         .then(console.log("connected database"))
         .catch(err=>console.log(err))
         
