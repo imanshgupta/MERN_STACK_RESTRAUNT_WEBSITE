@@ -1,45 +1,49 @@
-var express              =require("express"),
-    app                  =express(),
-    mongoose             =require("mongoose"),
-    bodyparser           =require("body-parser"),
-    dishes               =require("./models/dishes"),
-    comment              =require("./models/comment"),
-    User                =require("./models/user.js"),
-    passport             =require("passport"),
-    LocalStrategy        =require("passport-local"),
-    passportLocalMongoose=require("passport-local-mongoose");
-    seedDB               = require("./seeds")
+var express               =require("express"),
+    app                   =express(),
+    mongoose              =require("mongoose"),
+    bodyparser            =require("body-parser"),
+    dishes                =require("./models/dishes"),
+    comment               =require("./models/comment"),
+    User                  =require("./models/user.js"),
+    passport              =require("passport"),
+    LocalStrategy         =require("passport-local"),
+    passportLocalMongoose =require("passport-local-mongoose");
+    seedDB                = require("./seeds")
 //call the sedds function to predefine some data
     seedDB();
     app.set("view engine","ejs");
     app.use(bodyparser.urlencoded({extended:true}))
     app.use(bodyparser.json())
     app.use(express.static("public"));
-    //----------------------------------------------------------for authentication
+//----------------------------------------------------------for authentication
     app.use(require("express-session")({
         secret:"my name is ansh",//the decoder string
         resave:false,
         saveUninitialized:false
       }));
-     
+      
       passport.use(new LocalStrategy(User.authenticate()));
       app.use(passport.initialize());
       app.use(passport.session());
   //enccrypts and decrypts the data in session 
-  
-     
       passport.serializeUser(User.serializeUser());
       passport.deserializeUser(User.deserializeUser());
-        //database connecion
-        mongoose.connect("mongodb+srv://theanshgupa4868:hellowkitty1320@cluster0.yd5lb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",{useNewUrlParser: true ,useUnifiedTopology: true})
-        
+
+//------------------------------------------------------------------------------
+
+//database connecion
+        mongoose.connect("'mongodb://localhost:27017/restraunt",{useNewUrlParser: true ,useUnifiedTopology: true})
         .then(console.log("connected database"))
         .catch(err=>console.log(err))
+        
         //to get current user and send it to all the template
         app.use((req,res,next)=>{
             res.locals.currentuser=req.user;
             next();
         });
+
+
+//------------------------------------------------------------------------------
     app.get("/",(req,res)=>{
         res.render("landing");
     });
@@ -47,6 +51,7 @@ var express              =require("express"),
     app.get("/home",(req,res)=>{
         res.render("home")
     })
+
     app.get("/about",(req,res)=>{
 
         res.render("about");
@@ -57,9 +62,11 @@ var express              =require("express"),
             res.render("menu",{data:found})
         })
     })
+
     app.get("/menu/adddish",(req,res)=>{
         res.render("adddish");
     })
+
     app.post("/menu/adddish",(req,res)=>{
         dishes.create(req.body.dish,(err,dish)=>{
             if(err){
@@ -70,14 +77,17 @@ var express              =require("express"),
             }
         })
     })
+
     app.get("/menu/:id",isuserloggedin,(req,res)=>{
         dishes.findById(req.params.id).populate("comment").exec((err,found)=>{
             res.render("viewmore",{data:found})
         })
     })
+
     app.get("/contact",(req,res)=>{
         res.render("contact");
     })
+
     app.post("/menu/:id/comments/new",isuserloggedin,(req,res)=>{
         dishes.findById(req.params.id,(err,found)=>{
             comment.create(req.body.comm,(err,newcomm)=>{
@@ -87,11 +97,14 @@ var express              =require("express"),
         })
         res.redirect("/menu/"+req.params.id)
     })
+    
     //AUTHENTICATION ROUTES===================
     //user register==============
+    
     app.get("/userregister",(req,res)=>{
         res.render("userregister");
     })
+
     app.post("/userregister",(req,res)=>{
         var newuser=new User({username:req.body.username});
         if(req.body.admincode ==='admin'){
@@ -113,16 +126,16 @@ var express              =require("express"),
     app.get("/userlogin",(req,res)=>{
         res.render("userlogin");
     })
-    app.post("/userlogin",passport.authenticate("local",
-        {successRedirect:"/home",
-          failureRedirect:"/userlogin"}),(req,res)=>{})
+    app.post("/userlogin",passport.authenticate("local",{successRedirect:"/home",failureRedirect:"/userlogin"}),(req,res)=>{})
+
+
     //logout route========================
-          app.get("/userlogout",(req,res)=>{
+    app.get("/userlogout",(req,res)=>{
               req.logout();
               res.redirect("/")
           })
-    
-  
+
+          
     //function to check is user logged in or not
         function isuserloggedin(req,res,next){
             if(req.isAuthenticated())
