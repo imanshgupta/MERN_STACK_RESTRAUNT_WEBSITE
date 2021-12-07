@@ -8,16 +8,13 @@
                 </div>
                 
                 <div >
-                    <h4 class="pull-left">$ <%= data.price%></h4>
+                    <h4 class="pull-left">Rs <%= data.price%></h4>
                     <h4><a href="#"><%= data.title%></a></h4>
                     <p><%=data.description%></p>
                 </div>
                 
-
-            
                 <div >
-                        
-                        <hr>
+                      <hr>
                        <strong><p>CUSTOMER REVIEWS :></p></strong> 
                         <%data.comment.forEach((ob)=>{%>
                             <div class="row">
@@ -25,15 +22,10 @@
                                     <strong><%=ob.author%></strong>
                                     <p>
                                         <%=ob.content%>
-                                    </p>
-                                        
-                                    
-                                    
+                                    </p>              
                                 </div>
-                            </div>
-                           
+                            </div>        
                         <%})%>
-    
                     </div>  
                     <div class="well" style="border-top: 2px solid rgba(238, 177, 238, 0.767);">
                         <p>
