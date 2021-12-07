@@ -31,8 +31,9 @@ var express               =require("express"),
 
 //------------------------------------------------------------------------------
 
+const url = "mongodb+srv://ansh:ansh@cluster0.yd5lb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 //database connecion
-        mongoose.connect("'mongodb://localhost:27017/restraunt",{useNewUrlParser: true ,useUnifiedTopology: true})
+        mongoose.connect(url,{useNewUrlParser: true ,useUnifiedTopology: true})
         .then(console.log("connected database"))
         .catch(err=>console.log(err))
         
