@@ -9,12 +9,15 @@ var express               =require("express"),
     LocalStrategy         =require("passport-local"),
     passportLocalMongoose =require("passport-local-mongoose");
     seedDB                = require("./seeds")
+   path = require("path");
 //call the sedds function to predefine some data
     seedDB();
     app.set("view engine","ejs");
     app.use(bodyparser.urlencoded({extended:true}))
     app.use(bodyparser.json())
+
     app.use(express.static("public"));
+    app.set('views', path.join(__dirname, './public/views'));
 //----------------------------------------------------------for authentication
     app.use(require("express-session")({
         secret:"my name is ansh",//the decoder string
@@ -25,6 +28,8 @@ var express               =require("express"),
       passport.use(new LocalStrategy(User.authenticate()));
       app.use(passport.initialize());
       app.use(passport.session());
+
+      
   //enccrypts and decrypts the data in session 
       passport.serializeUser(User.serializeUser());
       passport.deserializeUser(User.deserializeUser());
@@ -36,8 +41,10 @@ const url = "mongodb+srv://ansh:ansh@cluster0.yd5lb.mongodb.net/myFirstDatabase?
         mongoose.connect(url,{useNewUrlParser: true ,useUnifiedTopology: true})
         .then(console.log("connected database"))
         .catch(err=>console.log(err))
-        
-        //to get current user and send it to all the template
+    
+
+
+//to get current user and send it to all the template
         app.use((req,res,next)=>{
             res.locals.currentuser=req.user;
             next();

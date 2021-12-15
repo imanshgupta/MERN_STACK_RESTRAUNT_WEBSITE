@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,6 +19,18 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="\stylesheet\app.css">
+   
+    <script>
+        if('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('../sw.js')
+            .then((res)=>{console.log("installed")})
+            .catch((err)=>{console.log("error in SW")})
+        }
+    </script>
+
+    <link rel="manifest" href="../manifest.json">
+
+    
 
     <title>El Chico</title>
 </head>

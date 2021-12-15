@@ -1,4 +1,4 @@
-<%- include("partials/header.ejs") %>
+<%- include("./header.ejs") %>
 
 <link rel="stylesheet" href="/stylesheet/menu.css">
  
@@ -20,18 +20,13 @@
                               
                               <p><%-data.description.substring(0,200)%>..</p>
                               <p>Price : $<%=data.price%></p>
-                              <p><a style="margin-bottom: 10px;"href="/menu/<%=data._id%>">VIEW MORE</a></p>
-                           
-                            
+                              <p><a style="margin-bottom: 10px;"href="/menu/<%=data._id%>">VIEW MORE</a></p>      
                           </div>
                         </div>
-                      
                 </div>
-           
         <% })%>
     </div>
     </div>
 
-      
 
-<%- include("partials/footer.ejs") %>
+    <%- include("./footer.ejs") %>
