@@ -9,12 +9,15 @@ body {
     background-image: url('../resources/patrick-tomasso-GXXYkSwndP4-unsplash.jpg');  
     background-size: 100%;
 }
+#log{
+    color: red;
+}
 
 </style>
 <div class="container text-center" style="margin:0,auto;margin-top:10%;">
     <div class="jumbotron">
       <h2 style= "font-family: Nunito;">LOGIN TO CONTINUE</h2>
-      <h4 style= "font-family: Nunito;"><a href="/userregister">NOT A USER? CLICK HERE TO SIGN UP</a></h4>
+      <h4 style= "font-family: Nunito;"><a href="/userregister" id="log">NOT A USER? CLICK HERE TO SIGN UP</a></h4>
     </div>
 <form action="/userlogin" method="POST">
     <div class="ui main text container segment">
