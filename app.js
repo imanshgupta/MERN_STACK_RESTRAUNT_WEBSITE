@@ -37,6 +37,7 @@ var express               =require("express"),
 //------------------------------------------------------------------------------
 
 const url = "mongodb+srv://ansh:ansh@cluster0.yd5lb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
 //database connecion
         mongoose.connect(url,{useNewUrlParser: true ,useUnifiedTopology: true})
         .then(console.log("connected database"))
@@ -134,6 +135,7 @@ const url = "mongodb+srv://ansh:ansh@cluster0.yd5lb.mongodb.net/myFirstDatabase?
     app.get("/userlogin",(req,res)=>{
         res.render("userlogin");
     })
+    
     app.post("/userlogin",passport.authenticate("local",{successRedirect:"/home",failureRedirect:"/userlogin"}),(req,res)=>{})
 
 
