@@ -7,9 +7,12 @@ var express               =require("express"),
     User                  =require("./models/user.js"),
     passport              =require("passport"),
     LocalStrategy         =require("passport-local"),
-    passportLocalMongoose =require("passport-local-mongoose");
+    passportLocalMongoose =require("passport-local-mongoose"),
+    
     seedDB                = require("./seeds")
    path = require("path");
+
+   
 //call the sedds function to predefine some data
     seedDB();
     app.set("view engine","ejs");
@@ -35,8 +38,8 @@ var express               =require("express"),
       passport.deserializeUser(User.deserializeUser());
 
 //------------------------------------------------------------------------------
-
-const url = "mongodb+srv://ansh:ansh@cluster0.yd5lb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const url="mongodb://localhost:27017/app"
+//const url = "mongodb+srv://ansh:ansh@cluster0.yd5lb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 //database connecion
         mongoose.connect(url,{useNewUrlParser: true ,useUnifiedTopology: true})
@@ -62,8 +65,7 @@ const url = "mongodb+srv://ansh:ansh@cluster0.yd5lb.mongodb.net/myFirstDatabase?
     })
 
     app.get("/about",(req,res)=>{
-
-        res.render("about");
+        res.render("about")
     })
     
     app.get("/menu",(req,res)=>{
@@ -94,7 +96,7 @@ const url = "mongodb+srv://ansh:ansh@cluster0.yd5lb.mongodb.net/myFirstDatabase?
     })
 
     app.get("/contact",(req,res)=>{
-        res.render("contact");
+        res.render('contact')
     })
 
     app.post("/menu/:id/comments/new",isuserloggedin,(req,res)=>{
@@ -136,7 +138,9 @@ const url = "mongodb+srv://ansh:ansh@cluster0.yd5lb.mongodb.net/myFirstDatabase?
         res.render("userlogin");
     })
     
-    app.post("/userlogin",passport.authenticate("local",{successRedirect:"/home",failureRedirect:"/userlogin"}),(req,res)=>{})
+    app.post("/userlogin",passport.authenticate("local",{successRedirect:"/home",failureRedirect:"/userlogin"}),(req,res)=>{
+
+    })
 
 
     //logout route========================
@@ -157,7 +161,7 @@ const url = "mongodb+srv://ansh:ansh@cluster0.yd5lb.mongodb.net/myFirstDatabase?
 
 
      //port formation
-    var port=process.env.PORT||8000
+    var port=process.env.PORT||9000
     app.listen(port,()=>{
         console.log(`server running at http://localhost:${port}`);
    })
