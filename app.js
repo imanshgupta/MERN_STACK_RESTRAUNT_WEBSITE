@@ -38,8 +38,8 @@ var express               =require("express"),
       passport.deserializeUser(User.deserializeUser());
 
 //------------------------------------------------------------------------------
-const url="mongodb://localhost:27017/app"
-//const url = "mongodb+srv://ansh:ansh@cluster0.yd5lb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+//const url="mongodb://localhost:27017/app"
+const url = "mongodb+srv://ansh:ansh@cluster0.yd5lb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 //database connecion
         mongoose.connect(url,{useNewUrlParser: true ,useUnifiedTopology: true})
